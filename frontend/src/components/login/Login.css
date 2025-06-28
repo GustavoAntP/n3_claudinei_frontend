@@ -1,5 +1,10 @@
 /* frontend/src/components/Login.css */
-body {
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Garante que ocupam a altura total da viewport */
+  width: 100%;  /* Garante que ocupam a largura total da viewport */
+  overflow: hidden;
   background-color: #282c34;
 }
 
@@ -31,10 +36,10 @@ h3{
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
-    margin-top: 3vh;
+  margin-top: 3vh;
 }
 
 .form-group {
@@ -48,7 +53,7 @@ h3{
 }
 
 .form-group input {
-  width: calc(100% - 20px); /* 100% menos o padding */
+  width: 100%; /* 100% menos o padding */
   padding: 10px;
   border: 1px solid #555;
   border-radius: 4px;

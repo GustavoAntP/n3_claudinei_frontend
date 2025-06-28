@@ -1,46 +1,63 @@
-// frontend/src/components/Login.js
+// frontend/src/components/login/Login.js
 import React, { useState } from 'react';
-import api from '../../services/api'
-import { useNavigate } from 'react-router-dom'; // Importe useNavigate
-import './Login.css'; 
+import { useNavigate } from 'react-router-dom';
+import { post } from '../../services/api';
+import { setToken, setNivel, setId } from '../../services'; 
+
+import './Login.css';
 
 function Login() {
   const [login, setLogin] = useState('');
   const [senha, setSenha] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(false); 
 
-   const navigate = useNavigate(); // Inicialize o hook useNavigate
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Evita o recarregamento da página
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-    setError(null); // Limpa erros anteriores
-    setLoading(true); // Indica que a requisição está em andamento
-    setSuccess(false); // Limpa o estado de sucesso
+    setError(null); 
+    setSuccess(false); 
+    setLoading(true);
 
     try {
-      const response = await api.post('/User/login', {
+      const { data } = await post("/User/login", {
         login: login,
         senha: senha,
       });
 
-      console.log('Login bem-sucedido:', response.data);
+      console.debug("Login bem-sucedido:", data);
+
+      setToken(data.token);
+      setNivel(data.nivelAcesso);
+      setId(data.usuarioId);
+
       setSuccess(true);
-      navigate('/dashboard');
-      alert('Login realizado com sucesso!');
+      
+      if (data.nivelAcesso === 3) {
+        navigate("/dashboard");
+      } else if (data.nivelAcesso === 2) {
+        navigate("/login");
+      } else if (data.nivelAcesso === 1) {
+        navigate("/login");
+      }
 
     } catch (err) {
-      console.error('Erro no login:', err);
-      if (err.response) {
-        setError(err.response.data.message || 'Erro ao fazer login. Verifique suas credenciais.');
+      console.error("Erro no login:", err);
+      if (err.response && err.response.data) {
+        setError(err.response.data.message || 'Erro desconhecido. Por favor, tente novamente.');
       } else if (err.request) {
         setError('Não foi possível conectar ao servidor. Verifique sua conexão ou se o backend está rodando.');
       } else {
-        setError('Erro desconhecido ao tentar login.');
+        setError('Erro interno ao tentar fazer login. Por favor, tente novamente.');
       }
       setSuccess(false);
+      
+      setTimeout(() => {
+        setError(null);
+      }, 2500);
     } finally {
       setLoading(false);
     }
@@ -50,7 +67,7 @@ function Login() {
     <div className="login-container">
       <h2>Bem-vindo!</h2>
       <h3>Faça seu login</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="login">Login:</label>
           <input

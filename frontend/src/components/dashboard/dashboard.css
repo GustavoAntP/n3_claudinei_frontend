@@ -1,24 +1,38 @@
 /* frontend/src/components/Home.css */
+body {
+  background-color: #282c34;
+  font-family: Arial, sans-serif;
+}
+
 .home-container {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background-color: #f0f2f5; /* Um cinza claro */
-  color: #333; /* Cor de texto padrão */
-  font-family: Arial, sans-serif;
+  color: #ffff;
+
   text-align: center;
-  padding: 20px;
 }
 
 .home-container h1 {
-  color: #282c34; /* Cor escura para o título */
-  margin-bottom: 20px;
+  color: #ffff;
+  font-size: 4vh;
+  margin-top: 50px;
 }
 
-.home-container p {
-  font-size: 1.2em;
-  line-height: 1.5;
-  color: #555;
+.home-container button{
+  color: black;
+  background-color: #6bff91;
+  border-radius: 5vh;
+  border-color: #2e703e;
+  border-style: solid;
+  border-width: 3px;
+}
+
+.buttonFunc{
+  margin-top: 50px;
+  width: 40vh;
+  height: 7vh;
+  font-size: 2.5vh;
 }

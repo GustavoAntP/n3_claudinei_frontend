@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import Login from './components/login/Login';
 import Dashboard from './components/dashboard/dashboard';
+import ListagemFuncionarios from './components/funcionario/ListagemFuncionarios';
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/ListagemFuncionarios" element={<ListagemFuncionarios />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
