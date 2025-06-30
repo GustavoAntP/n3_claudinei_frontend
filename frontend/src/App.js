@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './components/login/Login';
 import Dashboard from './components/dashboard/dashboard';
 import ListagemFuncionarios from './components/funcionario/ListagemFuncionarios';
+import NovoFuncionario from './components/funcionario/NovoFuncionario';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/ListagemFuncionarios" element={<ListagemFuncionarios />} />
+        <Route path="/NovoFuncionario" element={<NovoFuncionario />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>

@@ -63,25 +63,15 @@ function ListagemFuncionarios() {
     }
   }, [selectedFuncionario, toggleModal, navigate]);
 
-  const handleNavigateToCadastro = useCallback(() => {
+  const handleNavigateCadastro = () => {
       const token = getToken();
       if (token) {
-          try {
-              const decodedToken = JSON.parse(atob(token.split('.')[1]));
-              if (decodedToken.NIVEL_ACESSO === 3) {
-                  navigate("/User/cadastro");
-              } else {
-                  alert("Você não tem permissão para cadastrar novos funcionários.");
-              }
-          } catch (decodeError) {
-              console.error("Erro ao decodificar token:", decodeError);
-              alert("Erro de autenticação. Por favor, faça login novamente.");
-              navigate('/login');
-          }
-      } else {
-          navigate("/login");
-      }
-  }, [navigate]);
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        if (decodedToken.nivelAcesso === 3) {
+          navigate("/NovoFuncionario");
+        }
+    };
+  }
 
   if (loading) {
     return (
@@ -115,7 +105,7 @@ function ListagemFuncionarios() {
           <h1>Funcionários</h1>
         </Col>
         <Col xs="6" className="text-right">
-          <Button color="default" className="large-cadastrar" onClick={handleNavigateToCadastro}>+ Novo Funcionário</Button>
+          <Button color="default" className="large-cadastrar" onClick={handleNavigateCadastro}>+ Novo Funcionário</Button>
         </Col>
       </Row>
       <Row className="main-content">
@@ -148,7 +138,7 @@ function ListagemFuncionarios() {
       <Modal isOpen={modal} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>Confirmação de Exclusão</ModalHeader>
         <ModalBody>
-          Tem certeza de que deseja excluir o funcionário **{selectedFuncionario && selectedFuncionario.NOME}** ({selectedFuncionario && selectedFuncionario.LOGIN})?
+          Tem certeza de que deseja excluir o funcionário {selectedFuncionario && selectedFuncionario.NOME} ?
         </ModalBody>
         <ModalFooter>
           <Button onClick={handleDelete}>Excluir</Button>{' '}

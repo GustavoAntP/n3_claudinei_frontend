@@ -20,11 +20,18 @@ function Dashboard() {
     }
   };
 
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="home-container">
       <h1>Olá, seja bem-vindo(a)!</h1>
       <button className='buttonFunc' onClick={handleNavigate}>
         <b>CRUD Funcionario</b>
+      </button>
+      <button className='buttonSair' onClick={handleLogout}>
+        Sair
       </button>
     </div>
   );
